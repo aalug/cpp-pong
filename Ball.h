@@ -6,12 +6,14 @@
 class Ball {
 
     int x, y, speed_x, speed_y;
-    float radius;
+    int radius;
     Color color{};
 
 public:
-    Ball(int x, int y, int speed_x, int speed_y, float radius, Color color);
+    Ball(int x, int y, int speed_x, int speed_y, int radius, Color color);
+
     void draw();
+
     void update();
 
 };
