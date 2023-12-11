@@ -1,3 +1,6 @@
+#include <string>
+#include <map>
+#include <random>
 #include "Ball.h"
 
 
@@ -36,14 +39,36 @@ void Ball::draw() {
     DrawCircle(m_x, m_y, float(m_radius), m_color);
 }
 
-void Ball::update() {
+void Ball::reset_position() {
+    // set position to center
+    m_x = GetScreenWidth() / 2;
+    m_y = GetScreenHeight() / 2;
+
+    // generate random direction
+    int directions[2]{-1, 1};
+    m_speed_x *= directions[GetRandomValue(0, 1)];
+    m_speed_y *= directions[GetRandomValue(0, 1)];
+}
+
+void Ball::update(std::unordered_map<std::string, int> &score) {
     m_x += m_speed_x;
     m_y += m_speed_y;
 
-    if (m_x <= 0 + m_radius || m_x >= GetScreenWidth() - m_radius) {
-        m_speed_x *= -1;
-    }
     if (m_y <= 0 + m_radius || m_y >= GetScreenHeight() - m_radius) {
         m_speed_y *= -1;
+    } else if (m_x <= 0 + m_radius) {
+        // update score and move ball back to center
+        score["player"]++;
+        reset_position();
+
+        // sleep for 1s
+        WaitTime(1.0);
+    } else if (m_x >= GetScreenWidth() - m_radius) {
+        // update score and move ball back to center
+        score["computer"]++;
+        reset_position();
+
+        // sleep for 2s
+        WaitTime(1.0);
     }
 }

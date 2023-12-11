@@ -2,6 +2,8 @@
 #define PONG_BALL_H
 
 #include <raylib.h>
+#include <map>
+#include <string>
 
 class Ball {
 
@@ -25,8 +27,9 @@ public:
 
     void draw();
 
-    void update();
+    void update(std::unordered_map<std::string, int> &score);
 
+    void reset_position();
 };
 
 
