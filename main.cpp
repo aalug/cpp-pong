@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include "Ball.h"
 #include "Paddle.h"
+#include "AutoPaddle.h"
 
 int main() {
 
@@ -29,27 +30,53 @@ int main() {
 
     // player's paddle
     int x_pos{screen_width - distance_from_border - paddle_width};
-    Paddle right_paddle(x_pos, y_pos, paddle_width, paddle_height, paddle_speed, base_color);
+    Paddle player_paddle(x_pos, y_pos, paddle_width, paddle_height, paddle_speed, base_color);
 
-    // paddle 2
-    Paddle left_paddle(distance_from_border, y_pos, paddle_width, paddle_height, paddle_speed, base_color);
-
-
+    // paddle moved by a computer
+    AutoPaddle auto_paddle(distance_from_border, y_pos, paddle_width, paddle_height, paddle_speed, base_color);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
 
         // update ball and paddle positions
         ball.update();
-        right_paddle.update();
+        player_paddle.update();
+        auto_paddle.update(ball.y());
+
+        // check for collisions
+        // first for player
+        if (CheckCollisionCircleRec(Vector2{static_cast<float>(ball.x()),
+                                            static_cast<float>(ball.y())},
+                                    ball.radius(),
+                                    Rectangle{
+                                            static_cast<float>(player_paddle.x()),
+                                            static_cast<float>(player_paddle.y()),
+                                            static_cast<float>(player_paddle.width()),
+                                            static_cast<float>(player_paddle.height())}) ||
+            // for auto paddle
+            (CheckCollisionCircleRec(Vector2{static_cast<float>(ball.x()),
+                                             static_cast<float>(ball.y())},
+                                     ball.radius(),
+                                     Rectangle{
+                                             static_cast<float>(auto_paddle.x()),
+                                             static_cast<float>(auto_paddle.y()),
+                                             static_cast<float>(auto_paddle.width()),
+                                             static_cast<float>(auto_paddle.height())})
+            )
+                ) {
+            // reverse the ball's speed in x direction
+            // when it hits the paddle
+            ball.set_speed_x(ball.speed_x() * -1);
+        }
+
 
         // clear the background
         ClearBackground(background_color);
 
         // draw ball and paddles
         ball.draw();
-        left_paddle.draw();
-        right_paddle.draw();
+        auto_paddle.draw();
+        player_paddle.draw();
 
         // separating line
         DrawLine(screen_width / 2, 0, screen_width / 2, screen_height, base_color);
