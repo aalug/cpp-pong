@@ -32,7 +32,9 @@ set(SOURCES main.cpp
         Paddle.h
         Paddle.cpp
         AutoPaddle.h
-        AutoPaddle.cpp)
+        AutoPaddle.cpp
+        Menu.h
+        Menu.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 target_link_libraries(${PROJECT_NAME} PUBLIC raylib raylib_cpp)

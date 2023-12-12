@@ -2,6 +2,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "AutoPaddle.h"
+#include "Menu.h"
 
 int main() {
 
@@ -26,6 +27,10 @@ int main() {
     const int player_score_x_post{3 * computer_score_x_pos - scores_font_size};
     const int score_y_pos{30};
 
+    // menu
+    const int header_font_size{80};
+    const int subtitle_font_size{50};
+
     InitWindow(screen_width, screen_height, title);
     SetTargetFPS(fps);
 
@@ -49,56 +54,72 @@ int main() {
     // score
     std::unordered_map<std::string, int> scores{{"player",   0},
                                                 {"computer", 0}};
+    // menu
+    const Menu menu(screen_width, screen_height, header_font_size, subtitle_font_size, base_color, background_color);
+    bool show_menu{true};
+    bool show_welcome_menu{true};
+    int selector_position{};
 
     while (!WindowShouldClose()) {
         BeginDrawing();
 
-        // update ball and paddle positions
-        ball.update(scores);
-        player_paddle.update();
-        auto_paddle.update(ball.y());
+        // show manu
+        if (show_menu) {
+            if (show_welcome_menu) {
+                menu.display_start_menu(show_welcome_menu);
+            } else if (show_menu && !show_welcome_menu) {
+                menu.display_choose_difficulty_menu(show_menu, selector_position);
+            }
+        } else { // play the game
+            // update ball and paddle positions
+            ball.update(scores);
+            player_paddle.update();
+            auto_paddle.update(ball.y());
 
-        // check for collisions
-        // first for player
-        if (CheckCollisionCircleRec(Vector2{static_cast<float>(ball.x()),
-                                            static_cast<float>(ball.y())},
-                                    ball.radius(),
-                                    Rectangle{
-                                            static_cast<float>(player_paddle.x()),
-                                            static_cast<float>(player_paddle.y()),
-                                            static_cast<float>(player_paddle.width()),
-                                            static_cast<float>(player_paddle.height())}) ||
-            // for auto paddle
-            (CheckCollisionCircleRec(Vector2{static_cast<float>(ball.x()),
-                                             static_cast<float>(ball.y())},
-                                     ball.radius(),
-                                     Rectangle{
-                                             static_cast<float>(auto_paddle.x()),
-                                             static_cast<float>(auto_paddle.y()),
-                                             static_cast<float>(auto_paddle.width()),
-                                             static_cast<float>(auto_paddle.height())})
-            )
-                ) {
-            // reverse the ball's speed in x direction
-            // when it hits the paddle
-            ball.set_speed_x(ball.speed_x() * -1);
+            // check for collisions
+            // first for player
+            if (CheckCollisionCircleRec(Vector2{static_cast<float>(ball.x()),
+                                                static_cast<float>(ball.y())},
+                                        ball.radius(),
+                                        Rectangle{
+                                                static_cast<float>(player_paddle.x()),
+                                                static_cast<float>(player_paddle.y()),
+                                                static_cast<float>(player_paddle.width()),
+                                                static_cast<float>(player_paddle.height())}) ||
+                // for auto paddle
+                (CheckCollisionCircleRec(Vector2{static_cast<float>(ball.x()),
+                                                 static_cast<float>(ball.y())},
+                                         ball.radius(),
+                                         Rectangle{
+                                                 static_cast<float>(auto_paddle.x()),
+                                                 static_cast<float>(auto_paddle.y()),
+                                                 static_cast<float>(auto_paddle.width()),
+                                                 static_cast<float>(auto_paddle.height())})
+                )
+                    ) {
+                // reverse the ball's speed in x direction
+                // when it hits the paddle
+                ball.set_speed_x(ball.speed_x() * -1);
+            }
+
+
+            // clear the background
+            ClearBackground(background_color);
+
+            // draw ball and paddles
+            ball.draw();
+            auto_paddle.draw();
+            player_paddle.draw();
+
+            // draw the score
+            DrawText(TextFormat("%i", scores["computer"]), computer_score_x_pos, score_y_pos, scores_font_size,
+                     base_color);
+            DrawText(TextFormat("%i", scores["player"]), player_score_x_post, score_y_pos, scores_font_size,
+                     base_color);
+
+            // separating line
+            DrawLine(screen_width / 2, 0, screen_width / 2, screen_height, base_color);
         }
-
-
-        // clear the background
-        ClearBackground(background_color);
-
-        // draw ball and paddles
-        ball.draw();
-        auto_paddle.draw();
-        player_paddle.draw();
-
-        // draw the score
-        DrawText(TextFormat("%i", scores["computer"]), computer_score_x_pos, score_y_pos, scores_font_size, base_color);
-        DrawText(TextFormat("%i", scores["player"]), player_score_x_post, score_y_pos, scores_font_size, base_color);
-
-        // separating line
-        DrawLine(screen_width / 2, 0, screen_width / 2, screen_height, base_color);
 
         EndDrawing();
     }
