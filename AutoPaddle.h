@@ -8,6 +8,10 @@ class AutoPaddle : public Paddle {
 public:
     AutoPaddle(int x, int y, int width, int height, int speed, Color color);
 
+    /**
+     * Automatically move paddle towards the y position of the ball.
+     * @param ball_y ball position in y axios
+     */
     void update(int ball_y);
 };
 

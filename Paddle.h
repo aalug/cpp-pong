@@ -31,8 +31,14 @@ public:
 
     void set_color(Color color);
 
+    /*
+     * Draw a paddle on the board.
+     */
     void draw() const;
 
+    /**
+     * Update paddle position based on user's key press.
+     */
     void update();
 };
 

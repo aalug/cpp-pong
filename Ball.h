@@ -29,10 +29,22 @@ public:
 
     void set_color(Color color);
 
+    /**
+     * Draw a ball on the board.
+     */
     void draw();
 
+
+    /**
+     * Update ball position.
+     * @param score keeps the score.
+     */
     void update(std::unordered_map<std::string, int> &score);
 
+    /**
+     * Reset ball position to the center of the board and
+     * randomly choose direction to move.
+     */
     void reset_position();
 };
 

@@ -42,6 +42,18 @@ void Menu::display_menu(const std::string &menu_title, const std::vector<std::st
     Vector2 point_3{static_cast<float>(x_position - 80), static_cast<float>(300 + selector_position * 100 + 38)};
     DrawTriangle(point_3, point_2, point_1, m_color);
 
+    // draw movement instructions
+    const char *instructions[4]{"USE: ",
+                                "UP and DOWN arrows to move",
+                                "SPACE to confirm your choice",
+                                "ESC to exit"};
+
+    int pos_m{4};
+    for (auto instruction: instructions) {
+        DrawText(instruction, 30, m_screen_height - (pos_m * 35), 30, m_color);
+        pos_m--;
+    }
+
     // Handle user input
     if (IsKeyPressed(KEY_SPACE)) {
         show_menu = false;
