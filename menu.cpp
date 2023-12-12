@@ -28,7 +28,6 @@ void Menu::display_choose_difficulty_menu(bool &show_menu, int &selector_positio
     const int y_positions[]{300, 400, 500};
     const int num_difficulty_levels{3};
 
-
     // draw welcome text
     DrawText("Choose difficulty", m_screen_width / 2 - 350, 100, m_header_font_size, m_color);
     DrawText("Easy", x_position, y_positions[0], m_subtitle_font_size, m_color);
@@ -51,5 +50,38 @@ void Menu::display_choose_difficulty_menu(bool &show_menu, int &selector_positio
         selector_position = (selector_position - 1 + num_difficulty_levels) % num_difficulty_levels;
     }
 }
+
+void Menu::display_choose_color_theme_menu(bool &show_menu, int &selector_position) const {
+    // clear the background
+    ClearBackground(m_background_color);
+
+    const int x_position{m_screen_width / 2 - 90};
+    const int y_positions[]{300, 400, 500, 600};
+    const int num_color_themes{4};
+
+    // draw welcome text
+    DrawText("Choose color theme", m_screen_width / 2 - 350, 100, m_header_font_size, m_color);
+    DrawText("Classic", x_position, y_positions[0], m_subtitle_font_size, m_color);
+    DrawText("Dark blue", x_position, y_positions[1], m_subtitle_font_size, m_color);
+    DrawText("Grey", x_position, y_positions[2], m_subtitle_font_size, m_color);
+    DrawText("Colorful", x_position, y_positions[3], m_subtitle_font_size, m_color);
+
+    // draw triangle to show which level is selected
+    Vector2 point_1{static_cast<float>(x_position - 80), static_cast<float>(y_positions[selector_position] + 8)};
+    Vector2 point_2{static_cast<float>(x_position - 40), static_cast<float>(y_positions[selector_position] + 23)};
+    Vector2 point_3{static_cast<float>(x_position - 80), static_cast<float>(y_positions[selector_position] + 38)};
+    DrawTriangle(point_3, point_2, point_1, m_color);
+
+    if (IsKeyPressed(KEY_SPACE)) {
+        show_menu = false;
+    } else if (IsKeyPressed(KEY_DOWN)) {
+        // Move down, and wrap around if necessary
+        selector_position = (selector_position + 1) % num_color_themes;
+    } else if (IsKeyPressed(KEY_UP)) {
+        // Move up, and wrap around if necessary
+        selector_position = (selector_position - 1 + num_color_themes) % num_color_themes;
+    }
+}
+
 
 

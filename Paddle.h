@@ -29,6 +29,8 @@ public:
     // setters
     void set_speed(int speed);
 
+    void set_color(Color color);
+
     void draw() const;
 
     void update();
