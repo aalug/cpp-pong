@@ -15,7 +15,7 @@ protected:
 public:
     Paddle(int x, int y, int width, int height, int speed, Color color);
 
-
+    // getters
     [[nodiscard]] int x() const;
 
     [[nodiscard]]int y() const;
@@ -25,6 +25,9 @@ public:
     [[nodiscard]] int height() const;
 
     [[nodiscard]]int speed() const;
+
+    // setters
+    void set_speed(int speed);
 
     void draw() const;
 

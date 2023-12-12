@@ -25,6 +25,8 @@ public:
     // setters
     void set_speed_x(int speed_x);
 
+    void set_speed_y(int speed_y);
+
     void draw();
 
     void update(std::unordered_map<std::string, int> &score);
