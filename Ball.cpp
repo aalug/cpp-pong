@@ -35,6 +35,10 @@ void Ball::set_speed_x(int speed_x) {
     m_speed_x = speed_x;
 }
 
+void Ball::set_speed_y(int speed_y) {
+    m_speed_y = speed_y;
+}
+
 void Ball::draw() {
     DrawCircle(m_x, m_y, float(m_radius), m_color);
 }

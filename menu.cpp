@@ -26,7 +26,8 @@ void Menu::display_choose_difficulty_menu(bool &show_menu, int &selector_positio
 
     const int x_position{m_screen_width / 2 - 90};
     const int y_positions[]{300, 400, 500};
-    const int num_difficulty_levels = 3;
+    const int num_difficulty_levels{3};
+
 
     // draw welcome text
     DrawText("Choose difficulty", m_screen_width / 2 - 350, 100, m_header_font_size, m_color);

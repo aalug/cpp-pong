@@ -16,6 +16,10 @@ int Paddle::height() const { return m_height; }
 
 int Paddle::speed() const { return m_speed; }
 
+void Paddle::set_speed(int speed) {
+    m_speed = speed;
+}
+
 void Paddle::draw() const {
     DrawRectangle(this->m_x, this->m_y, m_width, m_height, m_color);
 }
