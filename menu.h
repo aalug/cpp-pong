@@ -15,6 +15,9 @@ public:
     Menu(int screen_width, int screen_height, int header_font_size, int subtitle_font_size, Color color,
          Color background_color);
 
+    void display_menu(const std::string &menu_title, const std::vector<std::string> &options, bool &show_menu,
+                      int &selector_position) const;
+
     /**
     *  Draw a menu that should be displayed
     *  at the start of the application.
