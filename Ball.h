@@ -27,6 +27,8 @@ public:
 
     void set_speed_y(int speed_y);
 
+    void set_color(Color color);
+
     void draw();
 
     void update(std::unordered_map<std::string, int> &score);

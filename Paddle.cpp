@@ -20,6 +20,10 @@ void Paddle::set_speed(int speed) {
     m_speed = speed;
 }
 
+void Paddle::set_color(Color color) {
+    m_color = color;
+}
+
 void Paddle::draw() const {
     DrawRectangle(this->m_x, this->m_y, m_width, m_height, m_color);
 }
