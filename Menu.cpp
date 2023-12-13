@@ -1,5 +1,7 @@
-#include "Menu.h"
 #include <raylib.h>
+#include <string>
+#include <vector>
+#include "Menu.h"
 
 
 Menu::Menu(int screen_width, int screen_height, int header_font_size, int subtitle_font_size, Color color,
@@ -20,7 +22,7 @@ void Menu::display_start_menu(bool &show_menu) const {
     DrawText(play_text, m_screen_width / 2 - 300, m_screen_height / 2 - 50, m_subtitle_font_size, m_color);
 }
 
-void Menu::display_menu(const std::string &menu_title, const std::vector<std::string> &options, bool &show_menu,
+void Menu::display_menu(const std::string &menu_title, const std::vector <std::string> &options, bool &show_menu,
                         int &selector_position) const {
     // Clear the background
     ClearBackground(m_background_color);
@@ -67,12 +69,12 @@ void Menu::display_menu(const std::string &menu_title, const std::vector<std::st
 }
 
 void Menu::display_choose_difficulty_menu(bool &show_menu, int &selector_position) const {
-    const std::vector<std::string> difficulty_options{"Easy", "Medium", "Hard"};
+    const std::vector <std::string> difficulty_options{"Easy", "Medium", "Hard"};
     display_menu("Choose difficulty", difficulty_options, show_menu, selector_position);
 }
 
 void Menu::display_choose_color_theme_menu(bool &show_menu, int &selector_position) const {
-    const std::vector<std::string> color_theme_options{"Classic", "Dark blue", "Grey", "Colorful"};
+    const std::vector <std::string> color_theme_options{"Classic", "Dark blue", "Grey", "Colorful"};
     display_menu("Choose color theme", color_theme_options, show_menu, selector_position);
 }
 

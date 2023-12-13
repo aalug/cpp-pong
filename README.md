@@ -15,6 +15,7 @@ Follow these steps to run the game on your local machine:
     - `cd build`
     - `cmake ..`
     - `make`
+      (if `cmake ..` fails, run `cmake .. -DPLATFORM=desktop`) 
 4. Run the game:
     - `./Pong`
 

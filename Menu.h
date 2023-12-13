@@ -3,6 +3,7 @@
 
 #include <raylib.h>
 #include <string>
+#include <vector>
 
 class Menu {
 
@@ -10,10 +11,6 @@ private:
     int m_screen_width, m_screen_height;
     int m_header_font_size, m_subtitle_font_size;
     Color m_color, m_background_color;
-
-public:
-    Menu(int screen_width, int screen_height, int header_font_size, int subtitle_font_size, Color color,
-         Color background_color);
 
     /**
      * Helper function for displaying general menu.
@@ -24,8 +21,13 @@ public:
      * @param show_menu
      * @param selector_position
      */
-    void display_menu(const std::string &menu_title, const std::vector<std::string> &options, bool &show_menu,
+    void display_menu(const std::string &menu_title, const std::vector <std::string> &options, bool &show_menu,
                       int &selector_position) const;
+
+public:
+    Menu(int screen_width, int screen_height, int header_font_size, int subtitle_font_size, Color color,
+         Color background_color);
+
 
     /**
     *  Draw a menu that should be displayed
